@@ -93,7 +93,7 @@ namespace Nop.Services.Directory
                             join sc in _storeMappingRepository.Table
                             on new { c1 = c.Id, c2 = nameof(Country) } equals new { c1 = sc.EntityId, c2 = sc.EntityName } into c_sc
                             from sc in c_sc.DefaultIfEmpty()
-                            where !c.LimitedToStores || currentStoreId == sc.StoreId
+                            where c.LimitedToStores && currentStoreId == sc.StoreId
                             select c;
 
                     query = query.Distinct().OrderBy(c => c.DisplayOrder).ThenBy(c => c.Name);

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Linq;
 using Nop.Core;
 using Nop.Core.Caching;
@@ -97,27 +97,27 @@ namespace Nop.Plugin.Shipping.FixedByWeightByTotal.Services
             //filter by store
             var matchedByStore = storeId == 0
                 ? matchedBySubtotal
-                : matchedBySubtotal.Where(r => r.StoreId == storeId || r.StoreId == 0);
+                : matchedBySubtotal.Where(r => r.StoreId == storeId);
 
             //filter by warehouse
             var matchedByWarehouse = warehouseId == 0
                 ? matchedByStore
-                : matchedByStore.Where(r => r.WarehouseId == warehouseId || r.WarehouseId == 0);
+                : matchedByStore.Where(r => r.WarehouseId == warehouseId);
 
             //filter by country
             var matchedByCountry = countryId == 0
                 ? matchedByWarehouse
-                : matchedByWarehouse.Where(r => r.CountryId == countryId || r.CountryId == 0);
+                : matchedByWarehouse.Where(r => r.CountryId == countryId);
 
             //filter by state/province
             var matchedByStateProvince = stateProvinceId == 0
                 ? matchedByCountry
-                : matchedByCountry.Where(r => r.StateProvinceId == stateProvinceId || r.StateProvinceId == 0);
+                : matchedByCountry.Where(r => r.StateProvinceId == stateProvinceId);
 
             //filter by zip
             var matchedByZip = string.IsNullOrEmpty(zip)
                 ? matchedByStateProvince
-                : matchedByStateProvince.Where(r => string.IsNullOrEmpty(r.Zip) || r.Zip.Equals(zip, StringComparison.InvariantCultureIgnoreCase));
+                : matchedByStateProvince.Where(r => (!string.IsNullOrEmpty(r.Zip)) && r.Zip.Equals(zip, StringComparison.InvariantCultureIgnoreCase));
 
             //sort from particular to general, more particular cases will be the first
             var foundRecords = matchedByZip.OrderBy(r => r.StoreId == 0).ThenBy(r => r.WarehouseId == 0)
