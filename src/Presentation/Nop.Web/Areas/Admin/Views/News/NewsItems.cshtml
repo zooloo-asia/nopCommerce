@@ -46,7 +46,7 @@
                                         <nop-label asp-for="NewsItems.SearchStoreId" />
                                     </div>
                                     <div class="col-md-8">
-                                        <nop-select asp-for="NewsItems.SearchStoreId" asp-items="Model.NewsItems.AvailableStores" />
+                                        <nop-select asp-for-name="@nameof(Model.NewsItems.SearchStoreId)" asp-items="Model.NewsItems.AvailableStores" />
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -74,7 +74,7 @@
                         LengthMenu = Model.NewsItems.AvailablePageSizes,
                         Filters = new List<FilterParameter>
                         {
-                            new FilterParameter(nameof(Model.NewsItems.SearchStoreId), nameof(Model.NewsItems))
+                            new FilterParameter(nameof(Model.NewsItems.SearchStoreId))
                         },
                         ColumnCollection = new List<ColumnProperty>
                         {

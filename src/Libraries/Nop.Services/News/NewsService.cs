@@ -117,7 +117,7 @@ namespace Nop.Services.News
                         join sm in _storeMappingRepository.Table
                         on new { c1 = n.Id, c2 = nameof(NewsItem) } equals new { c1 = sm.EntityId, c2 = sm.EntityName } into n_sm
                         from sm in n_sm.DefaultIfEmpty()
-                        where !n.LimitedToStores || storeId == sm.StoreId
+                        where n.LimitedToStores && storeId == sm.StoreId
                         select n;
 
                 query = query.Distinct().OrderByDescending(n => n.StartDateUtc ?? n.CreatedOnUtc);
