@@ -47,7 +47,7 @@
                                         <nop-label asp-for="BlogPosts.SearchStoreId" />
                                     </div>
                                     <div class="col-md-8">
-                                        <nop-select asp-for="BlogPosts.SearchStoreId" asp-items="Model.BlogPosts.AvailableStores" />
+                                        <nop-select asp-for-name="@nameof(Model.BlogPosts.SearchStoreId)" asp-items="Model.BlogPosts.AvailableStores" />
                                     </div>
                                 </div>
                                 <div class="form-group">
