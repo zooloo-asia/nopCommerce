@@ -472,7 +472,7 @@ namespace Nop.Services.Orders
                         join sm in _storeMappingRepository.Table
                         on new { c1 = p.Id, c2 = nameof(Product) } equals new { c1 = sm.EntityId, c2 = sm.EntityName } into p_sm
                         from sm in p_sm.DefaultIfEmpty()
-                        where !p.LimitedToStores || storeId == sm.StoreId
+                        where p.LimitedToStores && storeId == sm.StoreId
                         select p;
             }
 
