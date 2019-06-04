@@ -166,7 +166,7 @@ namespace Nop.Services.Topics
                                 join sm in _storeMappingRepository.Table
                                 on new { c1 = c.Id, c2 = nameof(Topic) } equals new { c1 = sm.EntityId, c2 = sm.EntityName } into cSm
                                 from sm in cSm.DefaultIfEmpty()
-                                where !c.LimitedToStores || storeId == sm.StoreId
+                                where c.LimitedToStores && storeId == sm.StoreId
                                 select c;
                     }
 
