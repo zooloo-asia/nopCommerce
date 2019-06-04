@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Linq;
 using Nop.Core;
 using Nop.Core.Data;
@@ -105,7 +105,7 @@ namespace Nop.Services.Polls
                             on new { poll.Id, Name = nameof(Poll) }
                             equals new { Id = storeMapping.EntityId, Name = storeMapping.EntityName } into storeMappingsWithNulls
                         from storeMapping in storeMappingsWithNulls.DefaultIfEmpty()
-                        where !poll.LimitedToStores || storeMapping.StoreId == storeId
+                        where poll.LimitedToStores && storeMapping.StoreId == storeId
                         select poll;
             }
 
