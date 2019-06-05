@@ -477,7 +477,7 @@ namespace Nop.Services.Catalog
                         join sm in _storeMappingRepository.Table
                         on new { c1 = p.Id, c2 = nameof(Product) } equals new { c1 = sm.EntityId, c2 = sm.EntityName } into p_sm
                         from sm in p_sm.DefaultIfEmpty()
-                        where !p.LimitedToStores || storeId == sm.StoreId
+                        where p.LimitedToStores && storeId == sm.StoreId
                         select p;
             }
 
@@ -2116,7 +2116,7 @@ namespace Nop.Services.Catalog
                             on new { Id = productReview.ProductId, Name = nameof(Product) }
                             equals new { Id = storeMapping.EntityId, Name = storeMapping.EntityName } into storeMappingsWithNulls
                         from storeMapping in storeMappingsWithNulls.DefaultIfEmpty()
-                        where !productReview.Product.LimitedToStores || storeMapping.StoreId == storeId
+                        where productReview.Product.LimitedToStores && storeMapping.StoreId == storeId
                         select productReview;
             }
 

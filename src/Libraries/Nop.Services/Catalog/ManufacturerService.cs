@@ -122,7 +122,7 @@ namespace Nop.Services.Catalog
                     join sm in _storeMappingRepository.Table
                         on new { c1 = m.Id, c2 = nameof(Manufacturer) } equals new { c1 = sm.EntityId, c2 = sm.EntityName } into m_sm
                     from sm in m_sm.DefaultIfEmpty()
-                    where !m.LimitedToStores || storeId == sm.StoreId
+                    where m.LimitedToStores && storeId == sm.StoreId
                     select m;
             }
 
@@ -251,7 +251,7 @@ namespace Nop.Services.Catalog
                                 join sm in _storeMappingRepository.Table
                                 on new { c1 = m.Id, c2 = nameof(Manufacturer) } equals new { c1 = sm.EntityId, c2 = sm.EntityName } into m_sm
                                 from sm in m_sm.DefaultIfEmpty()
-                                where !m.LimitedToStores || currentStoreId == sm.StoreId
+                                where m.LimitedToStores && currentStoreId == sm.StoreId
                                 select pm;
                     }
 
@@ -309,7 +309,7 @@ namespace Nop.Services.Catalog
                                 join sm in _storeMappingRepository.Table
                                 on new { c1 = m.Id, c2 = nameof(Manufacturer) } equals new { c1 = sm.EntityId, c2 = sm.EntityName } into m_sm
                                 from sm in m_sm.DefaultIfEmpty()
-                                where !m.LimitedToStores || currentStoreId == sm.StoreId
+                                where m.LimitedToStores && currentStoreId == sm.StoreId
                                 select pm;
                     }
 

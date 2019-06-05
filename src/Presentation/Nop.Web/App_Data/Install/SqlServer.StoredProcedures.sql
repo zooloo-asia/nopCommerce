@@ -507,7 +507,7 @@ BEGIN
 	IF @StoreId > 0
 	BEGIN
 		SET @sql = @sql + '
-		AND (p.LimitedToStores = 0 OR EXISTS (
+		AND (p.LimitedToStores = 1 and EXISTS (
 			SELECT 1 FROM [StoreMapping] sm with (NOLOCK)
 			WHERE [sm].EntityId = p.Id AND [sm].EntityName = ''Product'' and [sm].StoreId=' + CAST(@StoreId AS nvarchar(max)) + '
 			))'
@@ -685,7 +685,7 @@ BEGIN
 	WHERE
 		p.[Deleted] = 0
 		AND p.Published = 1
-		AND (@StoreId = 0 or (p.LimitedToStores = 0 OR EXISTS (
+		AND (@StoreId = 0 or (p.LimitedToStores = 1 AND EXISTS (
 			SELECT 1 FROM [StoreMapping] sm with (NOLOCK)
 			WHERE [sm].EntityId = p.Id AND [sm].EntityName = 'Product' and [sm].StoreId=@StoreId
 			)))
@@ -990,9 +990,10 @@ BEGIN
             (SELECT [acl].[CustomerRoleId] FROM [AclRecord] acl WITH (NOLOCK) WHERE [acl].[EntityId] = [Category].[Id] AND [acl].[EntityName] = 'Category')
         )
     )
-    AND (@StoreId = 0 OR [Category].[LimitedToStores] = 0
-        OR EXISTS (SELECT 1 FROM [StoreMapping] sm WITH (NOLOCK)
+    AND (@StoreId = 0 OR ([Category].[LimitedToStores] = 1
+        AND EXISTS (SELECT 1 FROM [StoreMapping] sm WITH (NOLOCK)
 			WHERE [sm].[EntityId] = [Category].[Id] AND [sm].[EntityName] = 'Category' AND [sm].[StoreId] = @StoreId
+            )
 		)
     )
     ORDER BY ISNULL([CategoryTree].[Order], 1)
