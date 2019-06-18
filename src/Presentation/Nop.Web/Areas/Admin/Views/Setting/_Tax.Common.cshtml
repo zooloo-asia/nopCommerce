@@ -31,4 +31,14 @@
             <span asp-validation-for="TaxBasedOnPickupPointAddress"></span>
         </div>
     </div>
+    <div class="form-group advanced-setting">
+        <div class="col-md-3">
+            <nop-override-store-checkbox asp-for="ApplyRoundingRulesToTaxes_OverrideForStore" asp-input="ApplyRoundingRulesToTaxes" asp-store-scope="@Model.ActiveStoreScopeConfiguration" />
+            <nop-label asp-for="ApplyRoundingRulesToTaxes" />
+        </div>
+        <div class="col-md-9">
+            <nop-editor asp-for="ApplyRoundingRulesToTaxes" />
+            <span asp-validation-for="ApplyRoundingRulesToTaxes"></span>
+        </div>
+    </div>
 </div>

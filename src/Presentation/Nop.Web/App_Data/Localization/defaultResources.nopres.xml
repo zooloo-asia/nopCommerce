@@ -8220,6 +8220,12 @@
   <LocaleResource Name="Admin.Configuration.Settings.Tax.AllowCustomersToSelectTaxDisplayType.Hint">
     <Value>A value indicating whether customers are allowed to select tax display type.</Value>
   </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.Settings.Tax.ApplyRoundingRulesToTaxes">
+    <Value>Apply rounding rules to taxes</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.Settings.Tax.ApplyRoundingRulesToTaxes.Hint">
+    <Value>Check to apply rounding rules (specified on the currency details page) to taxes. For example, taxes should not be rounded in Switzerland.</Value>
+  </LocaleResource>
   <LocaleResource Name="Admin.Configuration.Settings.Tax.BlockTitle.Common">
     <Value>Common</Value>
   </LocaleResource>

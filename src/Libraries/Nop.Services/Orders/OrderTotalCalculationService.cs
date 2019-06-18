@@ -841,7 +841,11 @@ namespace Nop.Services.Orders
                     discountAmountInclTax += discountTax;
                     taxValue = taxRates[taxRate] - discountTax;
                     if (_shoppingCartSettings.RoundPricesDuringCalculation)
-                        taxValue = _priceCalculationService.RoundPrice(taxValue);
+                    {
+                        taxValue = _taxSettings.ApplyRoundingRulesToTaxes
+                            ? _priceCalculationService.RoundPrice(taxValue)
+                            : Math.Round(taxValue, 2);
+                    }
                     taxRates[taxRate] = taxValue;
                 }
 
@@ -1231,7 +1235,12 @@ namespace Nop.Services.Orders
                 taxTotal = decimal.Zero;
             //round tax
             if (_shoppingCartSettings.RoundPricesDuringCalculation)
-                taxTotal = _priceCalculationService.RoundPrice(taxTotal);
+            {
+                taxTotal = _taxSettings.ApplyRoundingRulesToTaxes
+                    ? _priceCalculationService.RoundPrice(taxTotal)
+                    : Math.Round(taxTotal, 2);
+
+            }
             return taxTotal;
         }
 
@@ -1278,7 +1287,7 @@ namespace Nop.Services.Orders
             }
 
             //subtotal without tax
-            GetShoppingCartSubTotal(cart, false, out _, out _, out _, out var subTotalWithDiscountBase);
+            GetShoppingCartSubTotal(cart, true, out _, out _, out _, out var subTotalWithDiscountBase);
             //subtotal with discount
             var subtotalBase = subTotalWithDiscountBase;
 
@@ -1286,7 +1295,7 @@ namespace Nop.Services.Orders
             var shippingRateComputationMethods = _shippingPluginManager.LoadActivePlugins(_workContext.CurrentCustomer, _storeContext.CurrentStore.Id);
 
             //shipping without tax
-            var shoppingCartShipping = GetShoppingCartShippingTotal(cart, false, shippingRateComputationMethods);
+            var shoppingCartShipping = GetShoppingCartShippingTotal(cart, true, shippingRateComputationMethods);
 
             //payment method additional fee without tax
             var paymentMethodAdditionalFeeWithoutTax = decimal.Zero;
@@ -1296,11 +1305,11 @@ namespace Nop.Services.Orders
                     paymentMethodSystemName);
                 paymentMethodAdditionalFeeWithoutTax =
                     _taxService.GetPaymentMethodAdditionalFee(paymentMethodAdditionalFee,
-                        false, customer);
+                        true, customer);
             }
 
             //tax
-            var shoppingCartTax = GetTaxTotal(cart, shippingRateComputationMethods, usePaymentMethodAdditionalFee);
+            //var shoppingCartTax = GetTaxTotal(cart, shippingRateComputationMethods, usePaymentMethodAdditionalFee);
 
             //order total
             var resultTemp = decimal.Zero;
@@ -1311,7 +1320,7 @@ namespace Nop.Services.Orders
             }
 
             resultTemp += paymentMethodAdditionalFeeWithoutTax;
-            resultTemp += shoppingCartTax;
+            //resultTemp += shoppingCartTax;
             if (_shoppingCartSettings.RoundPricesDuringCalculation)
                 resultTemp = _priceCalculationService.RoundPrice(resultTemp);
 

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Globalization;
 using Nop.Core;
 using Nop.Core.Domain.Catalog;
@@ -210,8 +210,10 @@ namespace Nop.Services.Catalog
             Currency targetCurrency, Language language, bool priceIncludesTax, bool showTax)
         {
             //we should round it no matter of "ShoppingCartSettings.RoundPricesDuringCalculation" setting
-            var priceCalculationService = EngineContext.Current.Resolve<IPriceCalculationService>();
-            price = priceCalculationService.RoundPrice(price, targetCurrency);
+            //var priceCalculationService = EngineContext.Current.Resolve<IPriceCalculationService>();
+            //price = priceCalculationService.RoundPrice(price, targetCurrency);
+            //do not apply custom rounding here (it's applied in other places)
+            price = Math.Round(price, 2);
 
             var currencyString = GetCurrencyString(price, showCurrency, targetCurrency);
             if (!showTax) 

@@ -4,9 +4,12 @@
 declare @resources xml
 --a resource will be deleted if its value is empty
 set @resources='
-<Language>  
-  <LocaleResource Name="">
-    <Value></Value>
+<Language>
+  <LocaleResource Name="Admin.Configuration.Settings.Tax.ApplyRoundingRulesToTaxes">
+    <Value>Apply rounding rules to taxes</Value>
+  </LocaleResource>
+  <LocaleResource Name="Admin.Configuration.Settings.Tax.ApplyRoundingRulesToTaxes.Hint">
+    <Value>Check to apply rounding rules (specified on the currency details page) to taxes. For example, taxes should not be rounded in Switzerland.</Value>
   </LocaleResource>
 </Language>
 '
@@ -82,3 +85,11 @@ DEALLOCATE cur_existinglanguage
 DROP TABLE #LocaleStringResourceTmp
 GO
 
+
+--new setting
+IF NOT EXISTS (SELECT 1 FROM [Setting] WHERE [Name] = N'taxsettings.applyroundingrulestotaxes')
+BEGIN
+	INSERT [Setting] ([Name], [Value], [StoreId])
+	VALUES (N'taxsettings.applyroundingrulestotaxes', N'true', 0)
+END
+GO

@@ -59,6 +59,10 @@ namespace Nop.Web.Areas.Admin.Models.Settings
         public bool ForceTaxExclusionFromOrderSubtotal { get; set; }
         public bool ForceTaxExclusionFromOrderSubtotal_OverrideForStore { get; set; }
 
+        [NopResourceDisplayName("Admin.Configuration.Settings.Tax.ApplyRoundingRulesToTaxes")]
+        public bool ApplyRoundingRulesToTaxes { get; set; }
+        public bool ApplyRoundingRulesToTaxes_OverrideForStore { get; set; }
+
         [NopResourceDisplayName("Admin.Configuration.Settings.Tax.DefaultTaxCategory")]
         public int DefaultTaxCategoryId { get; set; }
         public bool DefaultTaxCategoryId_OverrideForStore { get; set; }

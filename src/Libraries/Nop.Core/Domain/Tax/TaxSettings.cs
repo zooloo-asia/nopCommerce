@@ -68,6 +68,11 @@ namespace Nop.Core.Domain.Tax
         public bool ForceTaxExclusionFromOrderSubtotal { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether we should apply rounding rules (specified on the currency details page) to taxes. For example, taxes should not be rounded in Switzerland
+        /// </summary>
+        public bool ApplyRoundingRulesToTaxes { get; set; }
+
+        /// <summary>
         /// Gets or sets a default tax category identifier for products
         /// </summary>
         public int DefaultTaxCategoryId { get; set; }
