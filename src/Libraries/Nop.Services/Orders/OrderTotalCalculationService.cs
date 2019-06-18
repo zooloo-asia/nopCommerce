@@ -1033,7 +1033,7 @@ namespace Nop.Services.Orders
         /// <param name="appliedDiscounts">Applied discounts</param>
         /// <returns>Shipping total</returns>
         public virtual decimal? GetShoppingCartShippingTotal(IList<ShoppingCartItem> cart, bool includingTax, IList<IShippingRateComputationMethod> shippingRateComputationMethods,
-            out decimal taxRate, out List<DiscountForCaching> appliedDiscounts)
+            out decimal taxRate, out List<DiscountForCaching> appliedDiscounts, bool roundPrices = true)
         {
             decimal? shippingTotal = null;
             decimal? shippingTotalTaxed = null;
@@ -1105,7 +1105,7 @@ namespace Nop.Services.Orders
                 shippingTotal = decimal.Zero;
 
             //round
-            if (_shoppingCartSettings.RoundPricesDuringCalculation)
+            if (roundPrices && _shoppingCartSettings.RoundPricesDuringCalculation)
                 shippingTotal = _priceCalculationService.RoundPrice(shippingTotal.Value);
 
             shippingTotalTaxed = _taxService.GetShippingPrice(shippingTotal.Value,
@@ -1114,7 +1114,7 @@ namespace Nop.Services.Orders
                 out taxRate);
 
             //round
-            if (_shoppingCartSettings.RoundPricesDuringCalculation)
+            if (roundPrices && _shoppingCartSettings.RoundPricesDuringCalculation)
                 shippingTotalTaxed = _priceCalculationService.RoundPrice(shippingTotalTaxed.Value);
 
             return shippingTotalTaxed;
@@ -1181,8 +1181,8 @@ namespace Nop.Services.Orders
             var shippingTax = decimal.Zero;
             if (_taxSettings.ShippingIsTaxable)
             {
-                var shippingExclTax = GetShoppingCartShippingTotal(cart, false, shippingRateComputationMethods, out var taxRate);
-                var shippingInclTax = GetShoppingCartShippingTotal(cart, true, shippingRateComputationMethods, out taxRate);
+                var shippingExclTax = GetShoppingCartShippingTotal(cart, false, shippingRateComputationMethods, out var taxRate, out _, roundPrices: false);
+                var shippingInclTax = GetShoppingCartShippingTotal(cart, true, shippingRateComputationMethods, out taxRate, out _, roundPrices: false);
                 if (shippingExclTax.HasValue && shippingInclTax.HasValue)
                 {
                     shippingTax = shippingInclTax.Value - shippingExclTax.Value;
