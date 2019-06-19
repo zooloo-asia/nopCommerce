@@ -840,12 +840,12 @@ namespace Nop.Services.Orders
                     var discountTax = taxRates[taxRate] * (discountAmountExclTax / subTotalExclTaxWithoutDiscount);
                     discountAmountInclTax += discountTax;
                     taxValue = taxRates[taxRate] - discountTax;
-                    if (_shoppingCartSettings.RoundPricesDuringCalculation)
-                    {
-                        taxValue = _taxSettings.ApplyRoundingRulesToTaxes
-                            ? _priceCalculationService.RoundPrice(taxValue)
-                            : Math.Round(taxValue, 2);
-                    }
+                    //if (_shoppingCartSettings.RoundPricesDuringCalculation)
+                    //{
+                    //    taxValue = _taxSettings.ApplyRoundingRulesToTaxes
+                    //        ? _priceCalculationService.RoundPrice(taxValue)
+                    //        : Math.Round(taxValue, 2);
+                    //}
                     taxRates[taxRate] = taxValue;
                 }
 
