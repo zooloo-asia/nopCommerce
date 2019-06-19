@@ -354,7 +354,7 @@ namespace Nop.Services.Orders
 
             updatedOrder.OrderTax = taxTotal;
             updatedOrder.TaxRates = taxRates.Aggregate(string.Empty, (current, next) =>
-                $"{current}{next.Key.ToString(CultureInfo.InvariantCulture)}:{next.Value.ToString(CultureInfo.InvariantCulture)};   ");
+                $"{current}{next.Key.ToString(CultureInfo.InvariantCulture)}:{Math.Round(next.Value, 4).ToString(CultureInfo.InvariantCulture)};   ");
             return taxTotal;
         }
 
