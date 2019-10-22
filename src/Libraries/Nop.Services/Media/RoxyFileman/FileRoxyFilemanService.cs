@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Nop.Core;
+using Nop.Core.Domain.Media;
 using Nop.Core.Infrastructure;
 
 namespace Nop.Services.Media.RoxyFileman
@@ -33,7 +34,8 @@ namespace Nop.Services.Media.RoxyFileman
             IHttpContextAccessor httpContextAccessor,
             INopFileProvider fileProvider,
             IWebHelper webHelper,
-            IWorkContext workContext) : base(hostingEnvironment, httpContextAccessor, fileProvider, webHelper, workContext)
+            IWorkContext workContext,
+            MediaSettings mediaSettings) : base(hostingEnvironment, httpContextAccessor, fileProvider, webHelper, workContext, mediaSettings)
         {
             _fileRootPath = null;
         }
