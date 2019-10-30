@@ -27,16 +27,57 @@
     <Content Include="App_Data\**" CopyToPublishDirectory="PreserveNewest" Exclude="App_Data\*.json" />
     <Content Update="App_Data\*.json" CopyToPublishDirectory="Never" />
     <Content Update="App_Data\DataProtectionKeys\*.xml" CopyToPublishDirectory="Never" />
+    <Compile Remove="Components\**" />
+    <Compile Remove="Controllers\**" />
+    <Compile Remove="Extensions\**" />
+    <Compile Remove="Factories\**" />
 
     <Compile Remove="Plugins\**" />
+
+    <Compile Remove="Themes\**" />
+
+    <Compile Remove="Validators\**" />
+
+    <Compile Remove="Views\**" />
+
+    <Content Remove="Components\**" />
+
+    <Content Remove="Controllers\**" />
+
+    <Content Remove="Extensions\**" />
+
+    <Content Remove="Factories\**" />
+
+    <Content Remove="Themes\**" />
+
+    <Content Remove="Validators\**" />
+
+    <Content Remove="Views\**" />
+
+    <EmbeddedResource Remove="Components\**" />
+
+    <EmbeddedResource Remove="Controllers\**" />
+
+    <EmbeddedResource Remove="Extensions\**" />
+
+    <EmbeddedResource Remove="Factories\**" />
     <EmbeddedResource Remove="Plugins\**" />
+    <EmbeddedResource Remove="Themes\**" />
+    <EmbeddedResource Remove="Validators\**" />
+    <EmbeddedResource Remove="Views\**" />
+    <None Remove="Components\**" />
+    <None Remove="Controllers\**" />
+    <None Remove="Extensions\**" />
+    <None Remove="Factories\**" />
     <None Remove="Plugins\**" />
+    <None Remove="Themes\**" />
+    <None Remove="Validators\**" />
+    <None Remove="Views\**" />
 
     <!-- We copy the entire \Plugins and \Themes directories.
 	    But we ignore cshtml and JSON files to avoid "Duplicate 'Content' items were included" error during publishing.
 	    We also can use "CheckForDuplicateItemsContinueOnError" as per https://github.com/dotnet/sdk/blob/master/src/Tasks/Microsoft.NET.Build.Tasks/build/Microsoft.NET.Sdk.DefaultItems.targets -->
     <Content Include="Plugins\**" CopyToPublishDirectory="PreserveNewest" Exclude="Plugins\**\*.config;Plugins\**\*.cshtml;Plugins\**\*.json" />
-    <Content Include="Themes\**" CopyToPublishDirectory="PreserveNewest" Exclude="Themes\**\*.config;Themes\**\*.cshtml;Themes\**\*.json" />
 
     <!-- We copy the \Logs directory -->
     <Content Include="Logs\**" CopyToPublishDirectory="PreserveNewest" />
@@ -52,7 +93,7 @@
     Therefore, we restore the standard configuration behavior (there was no copy to the output directory) 
     in order to avoid the "Duplicate dll" error during publication. 
     We can also use “ExcludeConfigFilesFromBuildOutput” according to https://github.com/aspnet/AspNetCore/issues/14017 --> 
-    <Content Update="**\*.config;**\*.json" CopyToOutputDirectory="Never" CopyToPublishDirectory="PreserveNewest"/>
+    <Content Update="**\*.config;**\*.json" CopyToOutputDirectory="Never" CopyToPublishDirectory="PreserveNewest" />
   </ItemGroup>
 
   <ItemGroup>
