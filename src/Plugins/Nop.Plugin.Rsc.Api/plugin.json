@@ -1,0 +1,11 @@
+{
+  "Group": "Rsc Api",
+  "FriendlyName": "Rsc Api",
+  "SystemName": "Rsc.Api",
+  "Version": "1.5",
+  "SupportedVersions": [ "4.30" ],
+  "Author": "Zooloo Infosys",
+  "DisplayOrder": 1,
+  "FileName": "Nop.Plugin.Rsc.Api.dll",
+  "Description": "This plugin provides Restful API for RSC projects"
+}

@@ -1,0 +1,9 @@
+{
+
+    "Key": "This is my shared key, not so secret, secret!",
+    "Issuer": "http://localhost:59717",
+    "Audience": "Any",
+    "AccessTokenExpirationMinutes": 1,
+    "RefreshTokenExpirationMinutes": 60
+
+}
