@@ -657,14 +657,15 @@ namespace Nop.Web.Controllers
         [CheckAccessPublicStore(true)]
         public virtual IActionResult Register()
         {
+            return Redirect("~/form/customer/register");
             //check whether registration is allowed
-            if (_customerSettings.UserRegistrationType == UserRegistrationType.Disabled)
-                return RedirectToRoute("RegisterResult", new { resultId = (int)UserRegistrationType.Disabled });
+            //if (_customerSettings.UserRegistrationType == UserRegistrationType.Disabled)
+            //    return RedirectToRoute("RegisterResult", new { resultId = (int)UserRegistrationType.Disabled });
 
-            var model = new RegisterModel();
-            model = _customerModelFactory.PrepareRegisterModel(model, false, setDefaultValues: true);
+            //var model = new RegisterModel();
+            //model = _customerModelFactory.PrepareRegisterModel(model, false, setDefaultValues: true);
 
-            return View(model);
+            //return View(model);
         }
 
         [HttpPost]
