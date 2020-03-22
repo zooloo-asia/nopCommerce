@@ -55,6 +55,7 @@ namespace Nop.Services.Catalog
         /// <param name="pageSize">Page size</param>
         /// <returns>Products</returns>
         IPagedList<Product> GetPagedProductsByIds(int[] productIds,
+            int productTotalRecords,
             int pageIndex = 0,
             int pageSize = int.MaxValue);
 

@@ -47,10 +47,6 @@ namespace Nop.Core
 
             if (TotalCount % pageSize > 0)
                 TotalPages++;
-            if (pageIndex > TotalPages - 1)
-            {
-                pageIndex = TotalPages - 1;
-            }
             PageSize = pageSize;
             PageIndex = pageIndex;
             AddRange(source.Skip(pageIndex * pageSize).Take(pageSize).ToList());

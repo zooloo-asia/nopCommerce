@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Nop.Core;
@@ -379,13 +379,15 @@ namespace Nop.Services.Catalog
         /// Get paged products by identifiers
         /// </summary>
         /// <param name="productIds">Product identifiers</param>
+        /// <param name="productTotalRecords">Total count of products</param>
         /// <param name="pageIndex">Page index</param>
         /// <param name="pageSize">Page size</param>
         /// <returns>Products</returns>
         public virtual IPagedList<Product> GetPagedProductsByIds(
             int[] productIds,
+            int productTotalRecords,
             int pageIndex = 0,
-            int pageSize = 1)
+            int pageSize = int.MaxValue)
         {
             var query = from p in _productRepository.Table
                         where productIds.Contains(p.Id) && !p.Deleted
@@ -401,7 +403,7 @@ namespace Nop.Services.Catalog
             }
 
             // return sortedProducts;
-            return new PagedList<Product>(sortedProducts, pageIndex, pageSize);
+            return new PagedList<Product>(sortedProducts, pageIndex, pageSize, productTotalRecords);
         }
 
         /// <summary>
